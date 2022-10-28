@@ -1,22 +1,32 @@
 import React from "react";
+import {
+  initNavigation,
+  withFocusable,
+} from "@noriginmedia/react-spatial-navigation";
 
 // Components
-import Sidebar from "./components/Sidebar";
-import Hero from "./components/Hero";
-import Menu from "./components/Menu";
+import Sidenav from "./components/Sidenav";
+import Content from "./components/Content";
 
-function App() {
-  return (
-    <div className="app">
-      <Sidebar />
-      <div className="content">
-        <Hero />
-        <Menu />
-        <Menu />
-        <Menu />
+// Initialization of navigation
+initNavigation();
+
+// Create focusable component
+const FocusableSidenav = withFocusable({
+  trackChildren: true,
+})(Sidenav);
+
+const FocusableContent = withFocusable()(Content);
+
+class App extends React.PureComponent {
+  render() {
+    return (
+      <div className="app">
+        <FocusableSidenav focusKey={"sidenav"} />
+        <FocusableContent focusKey={"content"} />
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default App;

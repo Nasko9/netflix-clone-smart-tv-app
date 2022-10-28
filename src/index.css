@@ -9,10 +9,6 @@
 
 .app {
   display: flex;
-  /* justify-content: flex-end; */
-}
 
-.content {
-  width: calc(100% - 60px);
-  margin-left: 60px;
+  /* justify-content: flex-end; */
 }
