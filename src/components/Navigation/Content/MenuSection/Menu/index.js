@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { withFocusable } from "@noriginmedia/react-spatial-navigation";
 
-// Components
+// Component
 import Card from "./Card";
 
 // Style
@@ -11,18 +11,7 @@ import "./index.css";
 // Create focusable component
 const FocusableCard = withFocusable()(Card);
 
-const menus = [
-  {
-    title: "Featured",
-  },
-  {
-    title: "Cool",
-  },
-  {
-    title: "Decent",
-  },
-];
-
+// Data
 const programs = [
   {
     id: 0,
@@ -74,26 +63,22 @@ const programs = [
 class Menu extends React.PureComponent {
   constructor(props) {
     super(props);
-
-    this.scrollRef = null;
-
+    this.scrollref = null;
     this.onProgramFocused = this.onProgramFocused.bind(this);
     this.onProgramArrowPress = this.onProgramArrowPress.bind(this);
   }
 
   onProgramFocused({ x }) {
-    this.scrollRef.scrollTo({
-      x,
-    });
+    this.scrollref.scrollTo({ x });
   }
 
-  onProgramArrowPress(direction, { menuIndex, programIndex }) {
+  onProgramArrowPress(direction, { categoryIndex, programIndex }) {
     if (
       direction === "right" &&
       programIndex === programs.length - 1 &&
-      menuIndex < menus.length - 1
+      categoryIndex < this.props.categories.legth - 1
     ) {
-      this.props.setFocus(`menu-${menuIndex + 1}`);
+      this.props.setFocus(`menu-${categoryIndex + 1}`);
       return false;
     }
     return true;
@@ -101,24 +86,17 @@ class Menu extends React.PureComponent {
 
   render() {
     return (
-      <div className="menu">
-        <h2 className="menu-title">{this.props.title}</h2>
-        <div
-          className="card-section"
-          ref={(reference) => {
-            if (reference) {
-              this.scrollRef = reference;
-            }
-          }}
-        >
+      <div>
+        <div>{this.props.title}</div>
+        <div className="menu">
           {programs.map((program) => (
             <FocusableCard
-              {...program}
               focusKey={`card-${this.props.realFocusKey}-${program.id}`}
-              onPress={() => this.props.onPress(program)}
+              {...program}
+              onPress={() => this.props.onProgramPress(program)}
               onEnterPress={this.props.onProgramPress}
               key={program.id}
-              onBecameFocused={this.onProgramFocused}
+              onBecomeFocused={this.onProgramFocused}
               onArrowPress={this.onProgramArrowPress}
               programIndex={program.id}
               categoryIndex={this.props.categoryIndex}
@@ -130,6 +108,8 @@ class Menu extends React.PureComponent {
   }
 }
 
+// Type checking
+//! Danger posibly mistake
 Menu.propTypes = {
   title: PropTypes.string.isRequired,
   onProgramPress: PropTypes.func.isRequired,

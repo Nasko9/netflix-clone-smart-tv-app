@@ -8,29 +8,20 @@ import Menu from "./Menu";
 // Style
 import "./index.css";
 
+// Create focusable component
+const FocusableMenu = withFocusable()(Menu);
+
 // Data
 const categories = [
   {
     id: 0,
     title: "Featured",
   },
-  // {
-  //   id: 1,
-  //   title: "Cool",
-  // },
-  // {
-  //   id: 2,
-  //   title: "Decent",
-  // },
 ];
-
-// Create focusable component
-const FocusableMenu = withFocusable()(Menu);
 
 class MenuSection extends React.PureComponent {
   constructor(props) {
     super(props);
-
     this.scrollRef = null;
     this.onCategoryFocused = this.onCategoryFocused.bind(this);
   }
@@ -49,15 +40,17 @@ class MenuSection extends React.PureComponent {
             this.scrollRef = reference;
           }
         }}
+        className="menu-section"
       >
         {categories.map((category) => (
           <FocusableMenu
-            {...category}
-            focuKey={`menu-${category.id}`}
-            onProgramPress={this.props.onProgramPress}
+            focusKey={`menu-${category.id}`}
             key={category.id}
+            {...category}
+            onProgramPress={this.props.onProgramPress}
             onBecameFocused={this.onCategoryFocused}
             categoryIndex={category.id}
+            categories
           />
         ))}
       </div>
@@ -65,6 +58,7 @@ class MenuSection extends React.PureComponent {
   }
 }
 
+// Type checking
 MenuSection.propTypes = {
   onProgramPress: PropTypes.func.isRequired,
   realFocusKey: PropTypes.string.isRequired,

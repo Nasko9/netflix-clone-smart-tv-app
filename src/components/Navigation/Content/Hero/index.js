@@ -26,7 +26,7 @@ Hero.propTypes = {
   }),
 };
 
-// Declare default value of props
+// Default prop value
 Hero.defaultProps = {
   program: null,
 };

@@ -1,0 +1,7 @@
+.menu {
+  margin-top: 5px;
+  display: block;
+  width: 100%;
+  overflow: scroll;
+  white-space: nowrap;
+}

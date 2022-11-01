@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-// Styles
+// Style
 import "./index.css";
 
 class Card extends React.PureComponent {
@@ -10,9 +10,9 @@ class Card extends React.PureComponent {
 
     return (
       <div
-        className={focused ? "card active" : "card"}
-        style={{ backgroundColor: color ? color : "#6d6d6e" }}
-        onPress={onPress}
+        onClick={onPress}
+        style={{ backgroundColor: color }}
+        className={focused ? "card focused" : "card"}
       >
         {title}
       </div>

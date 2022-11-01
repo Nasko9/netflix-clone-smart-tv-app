@@ -5,25 +5,19 @@ import {
 } from "@noriginmedia/react-spatial-navigation";
 
 // Components
-import Sidenav from "./components/Sidenav";
-import Content from "./components/Content";
+import Navigation from "./components/Navigation";
 
 // Initialization of navigation
 initNavigation();
 
 // Create focusable component
-const FocusableSidenav = withFocusable({
-  trackChildren: true,
-})(Sidenav);
-
-const FocusableContent = withFocusable()(Content);
+const FocusableNavigation = withFocusable()(Navigation);
 
 class App extends React.PureComponent {
   render() {
     return (
       <div className="app">
-        <FocusableSidenav focusKey={"sidenav"} />
-        <FocusableContent focusKey={"content"} />
+        <FocusableNavigation focusable={false} />
       </div>
     );
   }

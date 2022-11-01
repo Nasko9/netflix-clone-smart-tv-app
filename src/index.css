@@ -7,8 +7,20 @@
   font-family: "Roboto", sans-serif;
 }
 
-.app {
-  display: flex;
-
-  /* justify-content: flex-end; */
+/* test */
+/* .parent {
+  background-color: red;
+  display: block;
+  width: 100%;
+  overflow-x: scroll;
+  white-space: nowrap;
 }
+
+.child {
+  display: inline-block;
+  box-sizing: border-box;
+  width: 250px;
+  height: 150px;
+  background-color: azure;
+  margin-left: 5px;
+} */
