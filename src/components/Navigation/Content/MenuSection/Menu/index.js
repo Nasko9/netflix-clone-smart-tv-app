@@ -60,52 +60,51 @@ const programs = [
   },
 ];
 
-export default function Menu(props) {
+export default function Menu({
+  title,
+  categories,
+  categoryIndex,
+  onProgramPress,
+  setFocus,
+  realFocusKey,
+}) {
   const scrollRef = useRef(null);
 
-  // constructor(props) {
-  //   super(props);
-
-  //  scrollRef = React.createRef();
-  //  onProgramFocused =onProgramFocused.bind(this);
-  //  onProgramArrowPress =onProgramArrowPress.bind(this);
-  // }
-
-  function onProgramFocused({ x }) {
+  const onProgramFocused = ({ x }) => {
     if (x < 1250) {
       scrollRef.current.style.transform = `translateX(-${x}px)`;
     }
-  }
+  };
 
-  function onProgramArrowPress(direction, { categoryIndex, programIndex }) {
+  const onProgramArrowPress = (direction, { categoryIndex, programIndex }) => {
     if (
       direction === "right" &&
       programIndex === programs.length - 1 &&
-      categoryIndex < props.categories.length - 1
+      categoryIndex < categories.length - 1
     ) {
-      props.setFocus(`CATEGORY-${categoryIndex + 1}`);
+      setFocus(`CATEGORY-${categoryIndex + 1}`);
 
       return false;
     }
 
     return true;
-  }
+  };
 
   return (
     <div className="single-menu-section">
-      <div>{props.title}</div>
+      <div>{title}</div>
       <div className="menu" ref={scrollRef}>
         {programs.map((program, index) => (
           <FocusableCard
-            focusKey={`card-${props.realFocusKey}-${program.id}`}
+            focusKey={`card-${realFocusKey}-${program.id}`}
             {...program}
-            onPress={() => props.onProgramPress(program)}
-            onEnterPress={props.onProgramPress}
+            onPress={() => onProgramPress(program)}
+            onEnterPress={onProgramPress}
             key={program.id}
             onBecameFocused={onProgramFocused}
             onArrowPress={onProgramArrowPress}
             programIndex={index}
-            categoryIndex={props.categoryIndex}
+            categoryIndex={categoryIndex}
           />
         ))}
       </div>
