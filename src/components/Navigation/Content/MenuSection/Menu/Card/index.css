@@ -1,0 +1,12 @@
+.card {
+  display: inline-block;
+  width: 250px;
+  height: 125px;
+  border-radius: 7px;
+  box-sizing: border-box;
+  margin-left: 15px;
+}
+
+.card.focused {
+  border: 3px solid black;
+}
