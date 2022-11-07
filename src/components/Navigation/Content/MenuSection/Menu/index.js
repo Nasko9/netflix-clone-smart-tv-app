@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useRef } from "react";
 import { withFocusable } from "@noriginmedia/react-spatial-navigation";
 
 // Component
@@ -12,6 +11,7 @@ import "./index.css";
 const FocusableCard = withFocusable()(Card);
 
 // Data
+
 const programs = [
   {
     id: 0,
@@ -60,62 +60,55 @@ const programs = [
   },
 ];
 
-class Menu extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.scrollref = null;
-    this.onProgramFocused = this.onProgramFocused.bind(this);
-    this.onProgramArrowPress = this.onProgramArrowPress.bind(this);
+export default function Menu(props) {
+  const scrollRef = useRef(null);
+
+  // constructor(props) {
+  //   super(props);
+
+  //  scrollRef = React.createRef();
+  //  onProgramFocused =onProgramFocused.bind(this);
+  //  onProgramArrowPress =onProgramArrowPress.bind(this);
+  // }
+
+  function onProgramFocused({ x }) {
+    if (x < 1250) {
+      scrollRef.current.style.transform = `translateX(-${x}px)`;
+    }
   }
 
-  onProgramFocused({ x }) {
-    this.scrollref.scrollTo({ x });
-  }
-
-  onProgramArrowPress(direction, { categoryIndex, programIndex }) {
+  function onProgramArrowPress(direction, { categoryIndex, programIndex }) {
     if (
       direction === "right" &&
       programIndex === programs.length - 1 &&
-      categoryIndex < this.props.categories.legth - 1
+      categoryIndex < props.categories.length - 1
     ) {
-      this.props.setFocus(`menu-${categoryIndex + 1}`);
+      props.setFocus(`CATEGORY-${categoryIndex + 1}`);
+
       return false;
     }
+
     return true;
   }
 
-  render() {
-    return (
-      <div>
-        <div>{this.props.title}</div>
-        <div className="menu">
-          {programs.map((program) => (
-            <FocusableCard
-              focusKey={`card-${this.props.realFocusKey}-${program.id}`}
-              {...program}
-              onPress={() => this.props.onProgramPress(program)}
-              onEnterPress={this.props.onProgramPress}
-              key={program.id}
-              onBecomeFocused={this.onProgramFocused}
-              onArrowPress={this.onProgramArrowPress}
-              programIndex={program.id}
-              categoryIndex={this.props.categoryIndex}
-            />
-          ))}
-        </div>
+  return (
+    <div className="single-menu-section">
+      <div>{props.title}</div>
+      <div className="menu" ref={scrollRef}>
+        {programs.map((program, index) => (
+          <FocusableCard
+            focusKey={`card-${props.realFocusKey}-${program.id}`}
+            {...program}
+            onPress={() => props.onProgramPress(program)}
+            onEnterPress={props.onProgramPress}
+            key={program.id}
+            onBecameFocused={onProgramFocused}
+            onArrowPress={onProgramArrowPress}
+            programIndex={index}
+            categoryIndex={props.categoryIndex}
+          />
+        ))}
       </div>
-    );
-  }
+    </div>
+  );
 }
-
-// Type checking
-//! Danger posibly mistake
-Menu.propTypes = {
-  title: PropTypes.string.isRequired,
-  onProgramPress: PropTypes.func.isRequired,
-  realFocusKey: PropTypes.string.isRequired,
-  categoryIndex: PropTypes.number.isRequired,
-  setFocus: PropTypes.func.isRequired,
-};
-
-export default Menu;

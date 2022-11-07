@@ -20,36 +20,20 @@ const categories = [
 ];
 
 class MenuSection extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.scrollRef = null;
-    this.onCategoryFocused = this.onCategoryFocused.bind(this);
-  }
-
-  onCategoryFocused({ y }) {
-    this.scrollRef.scrollTo({
-      y,
-    });
-  }
+  // constructor(props) {
+  //   super(props);
+  // }
 
   render() {
     return (
-      <div
-        ref={(reference) => {
-          if (reference) {
-            this.scrollRef = reference;
-          }
-        }}
-        className="menu-section"
-      >
-        {categories.map((category) => (
+      <div ref={this.scrollRef} className="menu-section">
+        {categories.map((category, index) => (
           <FocusableMenu
             focusKey={`menu-${category.id}`}
             key={category.id}
             {...category}
             onProgramPress={this.props.onProgramPress}
-            onBecameFocused={this.onCategoryFocused}
-            categoryIndex={category.id}
+            categoryIndex={index}
             categories
           />
         ))}

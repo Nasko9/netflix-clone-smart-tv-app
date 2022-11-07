@@ -11,6 +11,7 @@ import "./index.css";
 // Create focusable component
 const FocusableMenuSection = withFocusable()(MenuSection);
 
+// Data
 const KEY_ENTER = "enter";
 const B_KEY = 66;
 
@@ -38,9 +39,10 @@ class Content extends React.PureComponent {
   onPressKey(event) {
     if (event.keyCode === B_KEY) {
       const { blockNavigationOut: blocked } = this.state;
+
       console.warn(
-        `blockedNavigationOut: ${!blocked}. Press B to ${
-          blocked ? "block" : "unblock"
+        `blockNavigationOut: ${!blocked}. Press B to ${
+          blocked ? "block" : "unblock "
         }`
       );
       this.setState((prevState) => ({

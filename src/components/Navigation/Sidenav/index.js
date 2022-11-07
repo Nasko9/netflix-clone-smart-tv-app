@@ -20,6 +20,7 @@ import "./index.css";
 const FocusableNavItem = withFocusable()(NavItem);
 
 // Data
+//? Da li je ok da ovako staim data ili mora da bude u komponenti
 const navData = [
   { id: 0, logo: <SearchIcon />, title: "search" },
   { id: 1, logo: <HomeIcon />, title: "home" },
