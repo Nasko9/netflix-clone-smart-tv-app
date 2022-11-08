@@ -1,6 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
-import { throttle } from "lodash";
+import React, { useEffect } from "react";
 import { withFocusable } from "@noriginmedia/react-spatial-navigation";
 
 // Components
@@ -16,35 +14,16 @@ const FocusableSidenav = withFocusable({
 })(Sidenav);
 const FocusableContent = withFocusable()(Content);
 
-class Navigation extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.onWheel = this.onWheel.bind(this);
-    this.throttledWheelHandler = throttle(
-      this.throttledWheelHandler.bind(this),
-      500,
-      { trailing: false }
-    );
-  }
-
-  componentDidMount() {
-    window.addEventListener("wheel", this.onWheel, { passive: false });
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("wheel", this.onWheel);
-  }
-
-  onWheel(event) {
+export default function Navigation(props) {
+  const onWheel = (event) => {
     event.preventDefault();
-    this.throttledWheelHandler(event);
-  }
+    throttledWheelHandler(event);
+  };
 
-  throttledWheelHandler(event) {
+  const throttledWheelHandler = (event) => {
     event.preventDefault();
     const { deltaY, deltaX } = event;
-    const { navigateByDirection } = this.props;
+    const { navigateByDirection } = props;
 
     if (deltaY > 1) {
       navigateByDirection("down");
@@ -55,21 +34,17 @@ class Navigation extends React.PureComponent {
     } else if (deltaX < 1) {
       navigateByDirection("left");
     }
-  }
+  };
 
-  render() {
-    return (
-      <div className="navigation">
-        <FocusableSidenav focusKey={"sidenav"} />
-        <FocusableContent focusKey={"content"} />
-      </div>
-    );
-  }
+  useEffect(() => {
+    window.addEventListener("wheel", onWheel, { passive: false });
+    return window.removeEventListener("wheel", onWheel);
+  }, []);
+
+  return (
+    <div className="navigation">
+      <FocusableSidenav focusKey={"sidenav"} />
+      <FocusableContent focusKey={"content"} />
+    </div>
+  );
 }
-
-// Type checking
-Navigation.propTypes = {
-  navigateByDirection: PropTypes.func.isRequired,
-};
-
-export default Navigation;

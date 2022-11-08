@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { withFocusable } from "@noriginmedia/react-spatial-navigation";
 
 // Components
@@ -15,65 +15,37 @@ const FocusableMenuSection = withFocusable()(MenuSection);
 const KEY_ENTER = "enter";
 const B_KEY = 66;
 
-class Content extends React.PureComponent {
-  constructor(props) {
-    super(props);
+export default function Content({ setFocus }) {
+  const [currentProgram, setCurrentPregram] = useState(null);
+  const [blockNavigationOut, setBlockNavigationOut] = useState(false);
 
-    this.state = {
-      currentProgram: null,
-      blockNavigationOut: false,
-    };
-
-    this.onPressKey = this.onPressKey.bind(this);
-    this.onProgramPress = this.onProgramPress.bind(this);
-  }
-
-  componentDidMount() {
-    window.addEventListener("keydown", this.onPressKey);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("keydown", this.onPressKey);
-  }
-
-  onPressKey(event) {
+  const onPressKey = (event) => {
     if (event.keyCode === B_KEY) {
-      const { blockNavigationOut: blocked } = this.state;
-
-      console.warn(
-        `blockNavigationOut: ${!blocked}. Press B to ${
-          blocked ? "block" : "unblock "
-        }`
-      );
-      this.setState((prevState) => ({
-        blockNavigationOut: !prevState.blockNavigationOut,
-      }));
+      setBlockNavigationOut(true);
     }
-  }
+  };
 
-  onProgramPress(programProps, { pressedKeys } = {}) {
+  const onProgramPress = (programProps, { pressedKeys } = {}) => {
     if (pressedKeys && pressedKeys[KEY_ENTER] > 1) {
       return;
     }
-    this.setState({
-      currentProgram: programProps,
-    });
-  }
+    setCurrentPregram(programProps);
+  };
 
-  render() {
-    const { blockNavigationOut } = this.state;
+  useEffect(() => {
+    setFocus();
+    window.addEventListener("keydown", onPressKey);
+    return window.removeEventListener("keydown", onPressKey);
+  }, []);
 
-    return (
-      <div className="content">
-        <Hero program={this.state.currentProgram} />
-        <FocusableMenuSection
-          focusKey={"menu-section"}
-          onProgramPress={this.onProgramPress}
-          blockNavigationOut={blockNavigationOut}
-        />
-      </div>
-    );
-  }
+  return (
+    <div className="content">
+      <Hero program={currentProgram} />
+      <FocusableMenuSection
+        focusKey={"menu-section"}
+        onProgramPress={onProgramPress}
+        blockNavigationOut={blockNavigationOut}
+      />
+    </div>
+  );
 }
-
-export default Content;
