@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useEffect } from "react";
 import { withFocusable } from "@noriginmedia/react-spatial-navigation";
 
 // Components
@@ -32,48 +31,28 @@ const navData = [
 
 const RETURN_KEY = 8;
 
-class Sidenav extends React.PureComponent {
-  constructor(props) {
-    super(props);
-
-    this.onPressKey = this.onPressKey.bind(this);
-  }
-
-  componentDidMount() {
-    this.props.setFocus();
-    window.addEventListener("keydown", this.onPressKey);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener("keydown", this.onPressKey);
-  }
-
-  // Handler on press button
-  onPressKey(event) {
+export default function Sidenav({ setFocus }) {
+  const onPressKey = (event) => {
     if (event.keyCode === RETURN_KEY) {
-      this.props.setFocus();
+      setFocus();
     }
-  }
+  };
 
-  render() {
-    return (
-      <div className="sidenav">
-        {navData.map((item) => (
-          <FocusableNavItem
-            {...item}
-            key={item.id}
-            focusKey={`sidenav-${item.id}`}
-          />
-        ))}
-      </div>
-    );
-  }
+  useEffect(() => {
+    setFocus();
+    window.addEventListener("keydown", onPressKey);
+    return window.removeEventListener("keydown", onPressKey);
+  }, []);
+
+  return (
+    <div className="sidenav">
+      {navData.map((item) => (
+        <FocusableNavItem
+          {...item}
+          key={item.id}
+          focusKey={`sidenav-${item.id}`}
+        />
+      ))}
+    </div>
+  );
 }
-
-// Type checking
-Sidenav.propTypes = {
-  setFocus: PropTypes.func.isRequired,
-  hasFocusedChild: PropTypes.bool.isRequired,
-};
-
-export default Sidenav;

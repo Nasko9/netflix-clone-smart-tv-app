@@ -13,14 +13,12 @@ initNavigation();
 // Create focusable component
 const FocusableNavigation = withFocusable()(Navigation);
 
-class App extends React.PureComponent {
-  render() {
-    return (
-      <div className="app">
-        <FocusableNavigation focusable={false} />
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div className="app">
+      <FocusableNavigation focusable={false} />
+    </div>
+  );
 }
 
 export default App;

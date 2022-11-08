@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { useRef } from "react";
 import { withFocusable } from "@noriginmedia/react-spatial-navigation";
 
 // Components
@@ -19,33 +18,21 @@ const categories = [
   },
 ];
 
-class MenuSection extends React.PureComponent {
-  // constructor(props) {
-  //   super(props);
-  // }
+export default function MenuSection({ onProgramPress }) {
+  const scrollRef = useRef(null);
 
-  render() {
-    return (
-      <div ref={this.scrollRef} className="menu-section">
-        {categories.map((category, index) => (
-          <FocusableMenu
-            focusKey={`menu-${category.id}`}
-            key={category.id}
-            {...category}
-            onProgramPress={this.props.onProgramPress}
-            categoryIndex={index}
-            categories
-          />
-        ))}
-      </div>
-    );
-  }
+  return (
+    <div ref={scrollRef} className="menu-section">
+      {categories.map((category, index) => (
+        <FocusableMenu
+          focusKey={`menu-${category.id}`}
+          key={category.id}
+          {...category}
+          onProgramPress={onProgramPress}
+          categoryIndex={index}
+          categories
+        />
+      ))}
+    </div>
+  );
 }
-
-// Type checking
-MenuSection.propTypes = {
-  onProgramPress: PropTypes.func.isRequired,
-  realFocusKey: PropTypes.string.isRequired,
-};
-
-export default MenuSection;
