@@ -7,11 +7,20 @@ import Card from "./Card";
 // Style
 import "./index.css";
 
+// Type
+interface IMenu {
+  title: string;
+  categories: string[];
+  categoryIndex: number;
+  onProgramPress: (text: { id: number; title: string; color: string }) => void;
+  setFocus: (text: string) => void;
+  realFocusKey: string;
+}
+
 // Create focusable component
 const FocusableCard = withFocusable()(Card);
 
 // Data
-
 const programs = [
   {
     id: 0,
@@ -67,16 +76,19 @@ export default function Menu({
   onProgramPress,
   setFocus,
   realFocusKey,
-}) {
-  const scrollRef = useRef(null);
+}: IMenu) {
+  const scrollRef = useRef<any>(null);
 
-  const onProgramFocused = ({ x }) => {
+  const onProgramFocused = ({ x }: any) => {
     if (x < 1250) {
       scrollRef.current.style.transform = `translateX(-${x}px)`;
     }
   };
 
-  const onProgramArrowPress = (direction, { categoryIndex, programIndex }) => {
+  const onProgramArrowPress = (
+    direction: any,
+    { categoryIndex, programIndex }: any
+  ) => {
     if (
       direction === "right" &&
       programIndex === programs.length - 1 &&

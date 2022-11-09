@@ -3,7 +3,15 @@ import React from "react";
 // Style
 import "./index.css";
 
-export default function Card({ color, onPress, focused, title }) {
+// Type
+interface ICard {
+  color: string;
+  onPress: () => void;
+  focused: boolean;
+  title: string;
+}
+
+export default function Card({ color, onPress, focused, title }: ICard) {
   return (
     <div
       onClick={onPress}

@@ -15,6 +15,11 @@ import PlusIcon from "../../Icons/PlusIcon";
 // Style
 import "./index.css";
 
+// Type
+interface ISidenav {
+  setFocus: () => void;
+}
+
 // Create focusable component
 const FocusableNavItem = withFocusable()(NavItem);
 
@@ -31,8 +36,8 @@ const navData = [
 
 const RETURN_KEY = 8;
 
-export default function Sidenav({ setFocus }) {
-  const onPressKey = (event) => {
+export default function Sidenav({ setFocus }: ISidenav) {
+  const onPressKey = (event: any) => {
     if (event.keyCode === RETURN_KEY) {
       setFocus();
     }

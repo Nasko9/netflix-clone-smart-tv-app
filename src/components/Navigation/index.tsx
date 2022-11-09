@@ -8,22 +8,27 @@ import Content from "./Content";
 // Style
 import "./index.css";
 
+// Type
+interface INavigation {
+  navigateByDirection: (text: string) => void;
+}
+
 // Create focusable component
 const FocusableSidenav = withFocusable({
   trackChildren: true,
 })(Sidenav);
 const FocusableContent = withFocusable()(Content);
 
-export default function Navigation(props) {
-  const onWheel = (event) => {
+export default function Navigation({ navigateByDirection }: INavigation) {
+  const onWheel = (event: any) => {
     event.preventDefault();
     throttledWheelHandler(event);
   };
 
-  const throttledWheelHandler = (event) => {
+  const throttledWheelHandler = (event: any) => {
+    console.log(event);
     event.preventDefault();
     const { deltaY, deltaX } = event;
-    const { navigateByDirection } = props;
 
     if (deltaY > 1) {
       navigateByDirection("down");

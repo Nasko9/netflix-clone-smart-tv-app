@@ -7,6 +7,11 @@ import Menu from "./Menu";
 // Style
 import "./index.css";
 
+// Type
+interface IMenuSection {
+  onProgramPress: () => void;
+}
+
 // Create focusable component
 const FocusableMenu = withFocusable()(Menu);
 
@@ -18,8 +23,8 @@ const categories = [
   },
 ];
 
-export default function MenuSection({ onProgramPress }) {
-  const scrollRef = useRef(null);
+export default function MenuSection({ onProgramPress }: IMenuSection) {
+  const scrollRef = useRef<any>(null);
 
   return (
     <div ref={scrollRef} className="menu-section">
