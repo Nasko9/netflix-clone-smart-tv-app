@@ -1,8 +1,17 @@
 import React from "react";
 
+// Interface
 import "./index.css";
 
-export default function Hero({ program }) {
+// Type
+interface IHero {
+  program: {
+    color: string;
+    title: string;
+  } | null;
+}
+
+export default function Hero({ program }: IHero) {
   return (
     <div
       className="hero"

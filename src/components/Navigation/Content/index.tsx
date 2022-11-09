@@ -8,6 +8,24 @@ import MenuSection from "./MenuSection";
 // Style
 import "./index.css";
 
+// Type
+interface IContent {
+  setFocus: () => {};
+}
+
+interface IProgramProps {
+  foucsKey: string;
+  id: number;
+  title: string;
+  color: string;
+  programIndex: number;
+  categoryIndex: number;
+  parrentFocusKey: string;
+  realFocusKey: string;
+  focused: boolean;
+  hasFocusedChild: boolean;
+}
+
 // Create focusable component
 const FocusableMenuSection = withFocusable()(MenuSection);
 
@@ -15,21 +33,26 @@ const FocusableMenuSection = withFocusable()(MenuSection);
 const KEY_ENTER = "enter";
 const B_KEY = 66;
 
-export default function Content({ setFocus }) {
-  const [currentProgram, setCurrentPregram] = useState(null);
+export default function Content({ setFocus }: IContent) {
+  const [currentProgram, setCurrentProgram] = useState<IProgramProps | null>(
+    null
+  );
   const [blockNavigationOut, setBlockNavigationOut] = useState(false);
 
-  const onPressKey = (event) => {
+  const onPressKey = (event: any) => {
     if (event.keyCode === B_KEY) {
       setBlockNavigationOut(true);
     }
   };
 
-  const onProgramPress = (programProps, { pressedKeys } = {}) => {
+  const onProgramPress = (
+    programProps: any,
+    { pressedKeys }: { pressedKeys: any }
+  ) => {
     if (pressedKeys && pressedKeys[KEY_ENTER] > 1) {
       return;
     }
-    setCurrentPregram(programProps);
+    setCurrentProgram(programProps);
   };
 
   useEffect(() => {
