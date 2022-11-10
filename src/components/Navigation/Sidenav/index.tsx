@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { withFocusable } from "@noriginmedia/react-spatial-navigation";
 
 // Components
@@ -15,16 +15,10 @@ import PlusIcon from "../../Icons/PlusIcon";
 // Style
 import "./index.css";
 
-// Type
-interface ISidenav {
-  setFocus: () => void;
-}
-
 // Create focusable component
 const FocusableNavItem = withFocusable()(NavItem);
 
 // Data
-//? Da li je ok da ovako staim data ili mora da bude u komponenti
 const navData = [
   { id: 0, logo: <SearchIcon />, title: "search" },
   { id: 1, logo: <HomeIcon />, title: "home" },
@@ -34,28 +28,14 @@ const navData = [
   { id: 5, logo: <PlusIcon />, title: "favorites" },
 ];
 
-const RETURN_KEY = 8;
-
-export default function Sidenav({ setFocus }: ISidenav) {
-  const onPressKey = (event: any) => {
-    if (event.keyCode === RETURN_KEY) {
-      setFocus();
-    }
-  };
-
-  useEffect(() => {
-    setFocus();
-    window.addEventListener("keydown", onPressKey);
-    return window.removeEventListener("keydown", onPressKey);
-  }, []);
-
+export default function Sidenav() {
   return (
     <div className="sidenav">
       {navData.map((item) => (
         <FocusableNavItem
           {...item}
           key={item.id}
-          focusKey={`sidenav-${item.id}`}
+          focusKey={`sidenav-item-${item.id}`}
         />
       ))}
     </div>

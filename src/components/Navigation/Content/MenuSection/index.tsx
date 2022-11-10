@@ -24,17 +24,17 @@ const categories = [
 ];
 
 export default function MenuSection({ onProgramPress }: IMenuSection) {
-  const scrollRef = useRef<any>(null);
+  const scrollRef = useRef(null);
 
   return (
     <div ref={scrollRef} className="menu-section">
-      {categories.map((category, index) => (
+      {categories.map((category) => (
         <FocusableMenu
           focusKey={`menu-${category.id}`}
           key={category.id}
           {...category}
           onProgramPress={onProgramPress}
-          categoryIndex={index}
+          categoryIndex={category.id}
           categories
         />
       ))}
