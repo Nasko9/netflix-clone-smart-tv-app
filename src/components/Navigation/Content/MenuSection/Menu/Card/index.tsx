@@ -11,10 +11,9 @@ interface ICard {
   title: string;
 }
 
-export default function Card({ color, onPress, focused, title }: ICard) {
+export default function Card({ color, focused, title }: ICard) {
   return (
     <div
-      onClick={onPress}
       style={{ backgroundColor: color }}
       className={focused ? "card focused" : "card"}
     >
