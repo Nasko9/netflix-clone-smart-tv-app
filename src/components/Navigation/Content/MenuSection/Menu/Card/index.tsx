@@ -6,7 +6,6 @@ import "./index.css";
 // Type
 interface ICard {
   color: string;
-  onPress: () => void;
   focused: boolean;
   title: string;
 }

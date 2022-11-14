@@ -9,18 +9,11 @@ import MenuSection from "./MenuSection";
 import "./index.css";
 import useContent from "./useContent";
 
-// Type
-interface IContent {
-  setFocus: () => void;
-}
-
 // Create focusable component
 const FocusableMenuSection = withFocusable()(MenuSection);
 
-export default function Content({ setFocus }: IContent) {
-  const { currentProgram, onProgramPress, blockNavigationOut } = useContent({
-    setFocus,
-  });
+export default function Content() {
+  const { currentProgram, onProgramPress } = useContent();
 
   return (
     <div className="content">
@@ -28,7 +21,6 @@ export default function Content({ setFocus }: IContent) {
       <FocusableMenuSection
         focusKey={"menu-section"}
         onProgramPress={onProgramPress}
-        blockNavigationOut={blockNavigationOut}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { withFocusable } from "@noriginmedia/react-spatial-navigation";
 
 // Components
@@ -17,25 +17,28 @@ const FocusableMenu = withFocusable()(Menu);
 
 // Data
 const categories = [
-  {
-    id: 0,
-    title: "Featured",
-  },
+  { id: 0, title: "Featured" },
+  { id: 1, title: "Tv Shows" },
+  { id: 2, title: "Favorite" },
 ];
 
 export default function MenuSection({ onProgramPress }: IMenuSection) {
-  const scrollRef = useRef(null);
+  const onMenuSectionFocused = ({ y }: { y: number }) => {
+    window.scrollTo({ top: y - 15, behavior: "smooth" });
+  };
 
   return (
-    <div ref={scrollRef} className="menu-section">
+    <div className="menu-section">
       {categories.map((category) => (
         <FocusableMenu
           focusKey={`menu-${category.id}`}
           key={category.id}
           {...category}
           onProgramPress={onProgramPress}
+          onBecameFocused={onMenuSectionFocused}
           categoryIndex={category.id}
           categories
+          programs
         />
       ))}
     </div>

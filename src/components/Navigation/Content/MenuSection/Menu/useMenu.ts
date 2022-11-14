@@ -11,7 +11,7 @@ const programs = [
   {
     id: 0,
     title: "Program 1",
-    color: "#fff",
+    color: "#cfcfc4",
   },
   {
     id: 1,
@@ -58,6 +58,7 @@ const programs = [
 export default function useMenu({ categories, setFocus }: IUseMenu) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
+  // What happend when i focus the program -> move 250px right
   const onProgramFocused = ({ x }: { x: number }) => {
     if (x < 1250) {
       if (scrollRef.current) {
@@ -66,6 +67,7 @@ export default function useMenu({ categories, setFocus }: IUseMenu) {
     }
   };
 
+  // Handle arrow press and move on menu
   const onProgramArrowPress = (
     direction: string,
     {
@@ -82,8 +84,8 @@ export default function useMenu({ categories, setFocus }: IUseMenu) {
 
       return false;
     }
-
     return true;
   };
+
   return { programs, scrollRef, onProgramFocused, onProgramArrowPress };
 }

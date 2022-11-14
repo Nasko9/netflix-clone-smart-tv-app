@@ -30,11 +30,14 @@ export default function Menu({
   realFocusKey,
 }: IMenu) {
   const {
-    programs,
     scrollRef,
     onProgramFocused,
+    programs,
     onProgramArrowPress,
-  } = useMenu({ categories, setFocus });
+  } = useMenu({
+    categories,
+    setFocus,
+  });
 
   return (
     <div className="single-menu-section">

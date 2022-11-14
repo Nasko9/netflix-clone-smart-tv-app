@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { withFocusable } from "@noriginmedia/react-spatial-navigation";
 
 // Components
@@ -15,6 +15,11 @@ import PlusIcon from "../../Icons/PlusIcon";
 // Style
 import "./index.css";
 
+// Type
+interface ISidenav {
+  setFocus: () => void;
+}
+
 // Create focusable component
 const FocusableNavItem = withFocusable()(NavItem);
 
@@ -28,7 +33,11 @@ const navData = [
   { id: 5, logo: <PlusIcon />, title: "favorites" },
 ];
 
-export default function Sidenav() {
+export default function Sidenav({ setFocus }: ISidenav) {
+  useEffect(() => {
+    setFocus();
+  }, []);
+
   return (
     <div className="sidenav">
       {navData.map((item) => (
