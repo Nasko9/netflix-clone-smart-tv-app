@@ -10,32 +10,32 @@ import useMenu from "./useMenu";
 
 // Type
 interface IMenu {
+  id: number;
   title: string;
   categories: string[];
   categoryIndex: number;
   onProgramPress: (text: { id: number; title: string; color: string }) => void;
   setFocus: (text: string) => void;
   realFocusKey: string;
+  programs: { id: number; title: string; color: string }[];
 }
 
 // Create focusable component
 const FocusableCard = withFocusable()(Card);
 
 export default function Menu({
+  id,
   title,
   categories,
   categoryIndex,
   onProgramPress,
   setFocus,
   realFocusKey,
+  programs,
 }: IMenu) {
-  const {
-    scrollRef,
-    onProgramFocused,
-    programs,
-    onProgramArrowPress,
-  } = useMenu({
+  const { scrollRef, onProgramFocused, onProgramArrowPress } = useMenu({
     categories,
+    programs,
     setFocus,
   });
 
@@ -45,10 +45,10 @@ export default function Menu({
       <div className="menu" ref={scrollRef}>
         {programs.map((program, index) => (
           <FocusableCard
-            focusKey={`card-${realFocusKey}-${program.id}`}
+            focusKey={`card-${realFocusKey}-${program.id}-${id} `}
             {...program}
             onEnterPress={onProgramPress}
-            key={program.id}
+            key={program.id + id}
             onBecameFocused={onProgramFocused}
             onArrowPress={onProgramArrowPress}
             programIndex={index}

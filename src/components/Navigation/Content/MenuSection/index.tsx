@@ -6,6 +6,7 @@ import Menu from "./Menu";
 
 // Style
 import "./index.css";
+import useMenuSection from "./useMenuSection";
 
 // Type
 interface IMenuSection {
@@ -15,17 +16,8 @@ interface IMenuSection {
 // Create focusable component
 const FocusableMenu = withFocusable()(Menu);
 
-// Data
-const categories = [
-  { id: 0, title: "Featured" },
-  { id: 1, title: "Tv Shows" },
-  { id: 2, title: "Favorite" },
-];
-
 export default function MenuSection({ onProgramPress }: IMenuSection) {
-  const onMenuSectionFocused = ({ y }: { y: number }) => {
-    window.scrollTo({ top: y - 15, behavior: "smooth" });
-  };
+  const { onMenuSectionFocused, categories } = useMenuSection();
 
   return (
     <div className="menu-section">
@@ -37,8 +29,8 @@ export default function MenuSection({ onProgramPress }: IMenuSection) {
           onProgramPress={onProgramPress}
           onBecameFocused={onMenuSectionFocused}
           categoryIndex={category.id}
+          programs={category.programs}
           categories
-          programs
         />
       ))}
     </div>
