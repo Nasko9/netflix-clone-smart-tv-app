@@ -1,4 +1,4 @@
-import React, { ReactChild, useRef } from "react";
+import React from "react";
 import { withFocusable } from "@noriginmedia/react-spatial-navigation";
 
 // Component

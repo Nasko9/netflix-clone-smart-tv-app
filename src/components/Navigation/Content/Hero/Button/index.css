@@ -1,0 +1,10 @@
+.hero-button {
+  width: 150px;
+  height: 50px;
+  background-color: antiquewhite;
+  border: none;
+  border-radius: 10px;
+}
+.hero-button.foucsed-button {
+  background-color: lime;
+}
