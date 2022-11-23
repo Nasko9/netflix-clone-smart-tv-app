@@ -3,20 +3,28 @@ import {
   initNavigation,
   withFocusable,
 } from "@noriginmedia/react-spatial-navigation";
+import { BrowserRouter as Router } from "react-router-dom";
 
 // Components
-import Navigation from "./components/Navigation";
+import Routes from "./containers/Routes";
+import SideMenu from "./components/SideMenu";
 
 // Initialization of navigation
 initNavigation();
 
 // Create focusable component
-const FocusableNavigation = withFocusable()(Navigation);
+const FocusableSideMenu = withFocusable()(SideMenu);
 
 function App() {
   return (
     <div className="app">
-      <FocusableNavigation focusable={false} />
+      <Router>
+        <FocusableSideMenu />
+        <div className="content">
+          <Routes />
+        </div>
+        {/* <FocusableNavigation focusable={false} /> */}
+      </Router>
     </div>
   );
 }

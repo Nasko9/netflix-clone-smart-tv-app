@@ -5,11 +5,11 @@ import { JsxElement } from "typescript";
 import "./index.css";
 
 // Type
-interface INavItem {
+interface ISideMenuItem {
   focused: boolean;
   logo: JsxElement;
 }
 
-export default function NavItem({ focused, logo }: INavItem) {
+export default function SideMenuItem({ focused, logo }: ISideMenuItem) {
   return <div className={focused ? "active" : ""}>{logo}</div>;
 }

@@ -2,7 +2,7 @@ import React from "react";
 import { withFocusable } from "@noriginmedia/react-spatial-navigation";
 
 // Components
-import Sidenav from "./Sidenav";
+import Sidenav from "../SideMenu";
 import Content from "./Content";
 
 // Style
