@@ -7,7 +7,11 @@ interface IUseMenu {
   programs: { id: number; title: string; color: string }[];
 }
 
-export default function useMenu({ categories, setFocus, programs }: IUseMenu) {
+export default function useCardMenu({
+  categories,
+  setFocus,
+  programs,
+}: IUseMenu) {
   const scrollRef = useRef<HTMLDivElement>(null);
 
   // What happend when i focus the program -> move 250px right

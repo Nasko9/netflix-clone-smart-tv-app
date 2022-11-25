@@ -9,7 +9,7 @@ interface IProgramProps {
   color: string;
 }
 
-export default function useContent() {
+export default function useHomePage() {
   const [currentProgram, setCurrentProgram] = useState<IProgramProps | null>(
     null
   );

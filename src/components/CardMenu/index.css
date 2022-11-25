@@ -1,0 +1,18 @@
+.single-menu-section {
+  overflow: hidden;
+  margin-bottom: 10px;
+  height: 165px;
+}
+
+.menu {
+  width: 200%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  white-space: nowrap;
+  transition: 300ms;
+}
+
+.menu-section-title {
+  margin-bottom: 5px;
+}

@@ -1,12 +1,14 @@
 .card {
-  display: inline-block;
   width: 250px;
   height: 125px;
   border-radius: 7px;
   box-sizing: border-box;
   margin-right: 15px;
+  color: #141414;
 }
 
 .card.focused {
-  border: 3px solid black;
+  width: 260px;
+  height: 135px;
+  border: 2px solid rgb(185, 9, 11);
 }

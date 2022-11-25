@@ -6,10 +6,10 @@ import Card from "./Card";
 
 // Style
 import "./index.css";
-import useMenu from "./useMenu";
+import useCardMenu from "./useCardMenu";
 
 // Type
-interface IMenu {
+interface ICardMenu {
   id: number;
   title: string;
   categories: string[];
@@ -23,7 +23,7 @@ interface IMenu {
 // Create focusable component
 const FocusableCard = withFocusable()(Card);
 
-export default function Menu({
+export default function CardMenu({
   id,
   title,
   categories,
@@ -32,8 +32,8 @@ export default function Menu({
   setFocus,
   realFocusKey,
   programs,
-}: IMenu) {
-  const { scrollRef, onProgramFocused, onProgramArrowPress } = useMenu({
+}: ICardMenu) {
+  const { scrollRef, onProgramFocused, onProgramArrowPress } = useCardMenu({
     categories,
     programs,
     setFocus,
@@ -41,7 +41,7 @@ export default function Menu({
 
   return (
     <div className="single-menu-section">
-      <div>{title}</div>
+      <div className="menu-section-title">{title}</div>
       <div className="menu" ref={scrollRef}>
         {programs.map((program, index) => (
           <FocusableCard

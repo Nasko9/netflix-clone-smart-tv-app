@@ -1,0 +1,7 @@
+.search-screen {
+  display: flex;
+  justify-content: center;
+  padding-top: 100px;
+  background-color: #b9090b;
+  height: 100vh;
+}

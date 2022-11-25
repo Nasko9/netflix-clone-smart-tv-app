@@ -2,7 +2,7 @@ import React from "react";
 import { withFocusable } from "@noriginmedia/react-spatial-navigation";
 
 // Components
-import Menu from "./Menu";
+import CardMenu from "../../../components/CardMenu";
 
 // Style
 import "./index.css";
@@ -14,7 +14,7 @@ interface IMenuSection {
 }
 
 // Create focusable component
-const FocusableMenu = withFocusable()(Menu);
+const FocusableCardMenu = withFocusable()(CardMenu);
 
 export default function MenuSection({ onProgramPress }: IMenuSection) {
   const { onMenuSectionFocused, categories } = useMenuSection();
@@ -22,7 +22,7 @@ export default function MenuSection({ onProgramPress }: IMenuSection) {
   return (
     <div className="menu-section">
       {categories.map((category) => (
-        <FocusableMenu
+        <FocusableCardMenu
           focusKey={`menu-${category.id}`}
           key={category.id}
           {...category}
